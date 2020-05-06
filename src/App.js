@@ -14,12 +14,34 @@ class BooksApp extends React.Component {
      */
     showSearchPage: false,
     books: [],
-    searchedBooks: []
+    read: [],
+    wantToRead: [],
+    currentlyReading: [],
+    searchedBooks: [],
   }
 
   componentDidMount(){
-    BooksAPI.getAll().then((books) => this.setState({books}))
+    this.getBooks();
+    this.arrangeShelfs();
   }
+
+  getBooks =async () => {
+    await BooksAPI.getAll().then((books) => this.setState({books}));
+    await this.arrangeShelfs();
+  }
+
+  arrangeShelfs = () => {
+    this.setState({'currentlyReading': this.state.books.filter((book) => book.shelf === 'currentlyReading')});
+    this.setState({'read': this.state.books.filter((book) => book.shelf === 'read')});
+    this.setState({'wantToRead': this.state.books.filter((book) => book.shelf === 'wantToRead')});
+
+  }
+
+  update = async (book, string) => {
+    await BooksAPI.update(book, string);  
+    await this.getBooks();
+  }
+
 
   search = (event) => {
     (event.target.value) && BooksAPI.search(event.target.value).then((searchedBooks) => this.setState({searchedBooks}))
@@ -52,9 +74,9 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <Shelf books={this.state.books.filter((book) => book.shelf === 'currentlyReading')} title="Currently Reading"/>
-                <Shelf books={this.state.books.filter((book) => book.shelf === 'wantToRead')} title="Want to Read"/>
-                <Shelf books={this.state.books.filter((book) => book.shelf === 'read')}/>
+                <Shelf books={this.state.currentlyReading} title="Currently Reading" update={this.update}/>
+                <Shelf books={this.state.wantToRead}title="Want to Read"  update={this.update} />
+                <Shelf books={this.state.read} update={this.update}/>
               </div>
             </div>
             <div className="open-search">
