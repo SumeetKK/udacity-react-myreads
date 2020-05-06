@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 class Book extends Component{
 
     book = this.props.book
-    
+
     update = (book, string) => this.props.update(book, string);
 
     render(){
@@ -24,7 +24,7 @@ class Book extends Component{
             <div className="book-title">{this.book.title}</div>
             <div className="book-authors">{this.book.authors || ""}</div>
         </div>
-            }
+    }
 }
 
 

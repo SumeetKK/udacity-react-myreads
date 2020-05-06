@@ -1,4 +1,4 @@
-# MyReads Project
+# MyReads - Udacity's React Fundamentals Course Project
 
 This is final assignment of Udacity's React Fundamentals course. 
 

@@ -28,14 +28,12 @@ class BooksApp extends React.Component {
     this.setState({'currentlyReading': this.state.books.filter((book) => book.shelf === 'currentlyReading')});
     this.setState({'read': this.state.books.filter((book) => book.shelf === 'read')});
     this.setState({'wantToRead': this.state.books.filter((book) => book.shelf === 'wantToRead')});
-
   }
 
   update = async (book, string) => {
     await BooksAPI.update(book, string);  
     await this.getBooks();
   }
-
 
   search = (event) => {
     (event.target.value) && BooksAPI.search(event.target.value).then((searchedBooks) => this.setState({searchedBooks}))
