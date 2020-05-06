@@ -1,7 +1,7 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
-import Shelf from './Shelf'
-import Book from './Book'
+import ListBooks from './ListBooks'
+import SearchBooks from './SearchBooks'
 import './App.css'
 
 class BooksApp extends React.Component {
@@ -47,42 +47,29 @@ class BooksApp extends React.Component {
     (event.target.value) && BooksAPI.search(event.target.value).then((searchedBooks) => this.setState({searchedBooks}))
   }
 
+toggleSearch = () => {
+  console.log("Search Toggled");
+  this.setState({ showSearchPage: !this.state.showSearchPage})
+};
+
   render() {
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-          <div className="search-books">
-            <div className="search-books-bar">
-              <button className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</button>
-              <div className="search-books-input-wrapper">
-                <input type="text" placeholder="Search by title or author" onChange={this.search} />
-              </div>
-            </div>
-            <div className="search-books-results">
-              <ol className="books-grid">
-                {(!this.state.searchedBooks.error) && this.state.searchedBooks.map((book) =>
-                      <li key={book.id}><Book book={book} /></li>
-                  )
-                }
-              </ol>
-            </div>
-          </div>
+          <SearchBooks 
+            search = {this.search}
+            searchedBooks = {this.state.searchedBooks}
+            toggleSearch = {this.toggleSearch}
+            update = {this.update}
+          />
         ) : (
-          <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
-            <div className="list-books-content">
-              <div>
-                <Shelf books={this.state.currentlyReading} title="Currently Reading" update={this.update}/>
-                <Shelf books={this.state.wantToRead}title="Want to Read"  update={this.update} />
-                <Shelf books={this.state.read} update={this.update}/>
-              </div>
-            </div>
-            <div className="open-search">
-              <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
-            </div>
-          </div>
+          <ListBooks 
+            currentlyReading = {this.state.currentlyReading}
+            wantToRead = {this.state.wantToRead}
+            read = {this.state.read}
+            update={this.update}
+            toggleSearch = {this.toggleSearch}
+          />
         )}
       </div>
     )
