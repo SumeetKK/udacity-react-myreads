@@ -1,4 +1,5 @@
 import React from 'react'
+import { BrowserRouter as Router, Route} from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import ListBooks from './ListBooks'
 import SearchBooks from './SearchBooks'
@@ -6,12 +7,6 @@ import './App.css'
 
 class BooksApp extends React.Component {
   state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
     showSearchPage: false,
     books: [],
     read: [],
@@ -22,7 +17,6 @@ class BooksApp extends React.Component {
 
   componentDidMount(){
     this.getBooks();
-    this.arrangeShelfs();
   }
 
   getBooks =async () => {
@@ -47,31 +41,33 @@ class BooksApp extends React.Component {
     (event.target.value) && BooksAPI.search(event.target.value).then((searchedBooks) => this.setState({searchedBooks}))
   }
 
-toggleSearch = () => {
-  console.log("Search Toggled");
-  this.setState({ showSearchPage: !this.state.showSearchPage})
-};
+  toggleSearch = () => {
+    this.setState({ showSearchPage: !this.state.showSearchPage})
+  };
 
   render() {
     return (
-      <div className="app">
-        {this.state.showSearchPage ? (
-          <SearchBooks 
-            search = {this.search}
-            searchedBooks = {this.state.searchedBooks}
-            toggleSearch = {this.toggleSearch}
-            update = {this.update}
-          />
-        ) : (
-          <ListBooks 
-            currentlyReading = {this.state.currentlyReading}
-            wantToRead = {this.state.wantToRead}
-            read = {this.state.read}
-            update={this.update}
-            toggleSearch = {this.toggleSearch}
-          />
-        )}
-      </div>
+      <Router>
+        <div className="app">
+          <Route exact path="/search">
+            <SearchBooks 
+              search = {this.search}
+              searchedBooks = {this.state.searchedBooks}
+              toggleSearch = {this.toggleSearch}
+              update = {this.update}
+            />
+          </Route>
+          <Route exact path="/">
+            <ListBooks 
+              currentlyReading = {this.state.currentlyReading}
+              wantToRead = {this.state.wantToRead}
+              read = {this.state.read}
+              update={this.update}
+              toggleSearch = {this.toggleSearch}
+            />
+          </Route>
+        </div>
+      </Router>
     )
   }
 }
