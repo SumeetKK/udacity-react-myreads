@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
+import PropTypes from 'prop-types';
 import Book from './Book'
 
 class SearchBooks extends Component{
@@ -16,7 +17,7 @@ class SearchBooks extends Component{
           <div className="search-books-results">
             <ol className="books-grid">
               {(!this.props.searchedBooks.error) && this.props.searchedBooks.map((book) =>
-                    <li key={book.id}><Book book={book} update={this.props.update}/></li>
+                    <li key={book.id}><Book book={book} update={this.update}/></li>
                 )
               }
             </ol>
@@ -24,5 +25,10 @@ class SearchBooks extends Component{
         </div>
     }
 }
+
+SearchBooks.propTypes = {
+  update: PropTypes.func.isRequired,
+  search: PropTypes.func.isRequired,
+};
 
 export default SearchBooks
