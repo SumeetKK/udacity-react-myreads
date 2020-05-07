@@ -36,7 +36,22 @@ class BooksApp extends React.Component {
   }
 
   search = (event) => {
-    (event.target.value) && BooksAPI.search(event.target.value).then((searchedBooks) => this.setState({searchedBooks}))
+    (event.target.value) && BooksAPI.search(event.target.value).then((searchedBooks) => {
+      for(let book of searchedBooks)
+      {
+        if(this.state.books.length < 1)
+        {
+          this.getBooks();
+        }
+        this.state.books.map((shelvedBook) => {
+          if(book.id === shelvedBook.id)
+          {
+            book.shelf = shelvedBook.shelf;
+          }
+        })
+      }
+      this.setState({searchedBooks})
+    })
   }
 
   toggleSearch = () => {
