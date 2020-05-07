@@ -7,7 +7,6 @@ import './App.css'
 
 class BooksApp extends React.Component {
   state = {
-    showSearchPage: false,
     books: [],
     read: [],
     wantToRead: [],
@@ -43,12 +42,13 @@ class BooksApp extends React.Component {
         {
           this.getBooks();
         }
-        this.state.books.map((shelvedBook) => {
+        for(let shelvedBook of this.state.books)
+        {
           if(book.id === shelvedBook.id)
           {
             book.shelf = shelvedBook.shelf;
           }
-        })
+        }
       }
       this.setState({searchedBooks})
     })
