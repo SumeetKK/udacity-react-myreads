@@ -8,7 +8,7 @@ To run this project, you should first clone this project using the following com
 
 Then, Move into project directory using the following command
 
-* `cd udacity-react-myredis`
+* `cd udacity-react-myreads`
 
 After moving into Project's Directory, use the following commands to run it.
 
