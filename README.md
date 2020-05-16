@@ -2,7 +2,7 @@
 
 This is final assignment of Udacity's React Fundamentals course. In this assignment, we were asked to built a front-end functionality of a project using _**React JS**_. API, Functions necessary to call API, and basic styling was already provided by Udacity.
 
-## Pre-Requisited
+## Pre-Requisites
 You need **NodeJS** and **NPM** to install and run this project.  Please refer to [this guide](https://gist.github.com/kazzkiq/fe702215173e795d49d0c1ffbea363b5) if you dont know how to install NodeJS and NPM.
 
 ## Installation
