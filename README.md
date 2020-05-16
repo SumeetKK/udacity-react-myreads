@@ -32,6 +32,7 @@ After moving into Project's Directory, use the following commands to run it.
     ├── App.test.js # Used for testing.
     ├── Books.js # Book Component.
     ├── BooksAPI.js # A JavaScript API for the provided Udacity backend. 
+    ├── Error404.js # 404 Error Component. 
     ├── icons # Helpful images for your app. Use at your discretion.
     │   ├── add.svg
     │   ├── arrow-back.svg
